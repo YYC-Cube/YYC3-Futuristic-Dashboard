@@ -1,3 +1,12 @@
+/**
+ * 服务端 Proxy/Middleware 参考实现。
+ *
+ * 当前项目使用 `output: "export"` 静态导出，Next.js 不会加载此文件。
+ * 认证由 `components/common/auth-guard.tsx` 在客户端完成；
+ * Docker 部署的安全响应头由 `docker/nginx.conf` 提供。
+ *
+ * 如需启用服务端中间件，请将该文件移回项目根目录并移除 `output: "export"`。
+ */
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { createRateLimiter } from "@/lib/auth/rate-limit"

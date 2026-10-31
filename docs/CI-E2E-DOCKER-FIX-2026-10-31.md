@@ -158,17 +158,54 @@ healthcheck:
 | ---- | ---- | ---- |
 | TypeScript | `pnpm exec tsc --noEmit` | ✅ 0 errors |
 | 单元测试 | `pnpm test` | ✅ 39 files / 655 tests passed |
-| E2E 冒烟 | `CI=true pnpm test:e2e:ci` | ✅ 4 passed |
+| E2E 全量 Chromium | `CI=true pnpm test:e2e:ci` | ✅ 39 passed / 2 skipped |
 | Docker 构建 | `docker build -t yyc3-dashboard:test .` | ✅ 成功 |
 | Docker 运行 | `docker run -p 18080:80 ...` | ✅ `/` 200、`/rooms/` 200、未知路径 404 |
 | YAML 语法 | Ruby YAML 解析 | ✅ 通过 |
 
 ## 六、遗留事项
 
-- 旧 E2E 用例仍引用 `/dashboard` 与历史 `data-testid`，当前未纳入 CI；建议后续按现有页面逐条迁移。
-- 工作流仍存在 Node.js 20 弃用警告，后续可评估升级到 Node 22。
 - 安全扫描中的 TruffleHog 因 base/head 相同会报错，可改为仅在 PR 场景执行。
+
+## 七、后续治理（2026-11-01）
+
+### 7.1 历史 E2E 迁移
+
+- 10 个历史 E2E 文件已迁移到当前 `/`、`/rooms`、`/orders`、`/inventory`、`/membership`、`/products`、`/members`、`/settings`、`/employees`、`/pos` 等真实路由。
+- 移除对 `/dashboard` 和历史 `data-testid` 的依赖，改用当前页面的标题、Tab、按钮与占位符。
+- 新增 `e2e/helpers.ts` 提供会话注入与登录辅助。
+- 视觉回归用例因缺少基线截图暂标记为 `skip`，保留结构待独立流水线接入。
+- `test:e2e:ci` 现在运行完整 Chromium 套件：39 passed / 2 skipped。
+
+### 7.2 Node.js 22 与 Actions 升级
+
+- 工作流 `NODE_VERSION: '22'`，矩阵 `node-version: [22.x]`。
+- Dockerfile 两阶段统一为 `node:22-alpine`。
+- 新增 `.nvmrc` 与 `engines.node >= 22`。
+- GitHub Actions 升级至 Node 24 运行时版本：
+  - `actions/checkout@v7`
+  - `actions/setup-node@v7`
+  - `actions/cache@v6`
+  - `actions/upload-artifact@v7`
+  - `pnpm/action-setup@v6`
+  - `actions/configure-pages@v6`
+  - `actions/upload-pages-artifact@v5`
+  - `actions/deploy-pages@v5`
+  - `softprops/action-gh-release@v3`
+
+### 7.3 Middleware 与静态导出告警
+
+- 将根目录 `proxy.ts` 移至 `server/proxy.server.ts`，避免 Next.js 将静态导出项目识别为 Middleware。
+- 移除 `next.config.mjs` 中空的 `headers` / `rewrites` / `redirects`，消除构建告警。
+- 客户端认证继续由 `AuthGuard` 负责。
+- Docker 部署的安全响应头改由 `docker/nginx.conf` 提供：
+  - `X-Frame-Options`
+  - `X-Content-Type-Options`
+  - `Referrer-Policy`
+  - `X-XSS-Protection`
+
+构建验证：`pnpm build` 已不再出现 `Middleware cannot be used with "output: export"` 告警。
 
 ---
 
-**结论**：E2E 已改为 Ubuntu 24.04 + Chromium 冒烟套件，Docker 已改为 pnpm 10 固定版本 + 静态 Nginx 镜像，二者本地均已验证通过。
+**结论**：E2E 已迁移到当前真实路由并全量通过 Chromium 套件；Node.js 已升级至 22；静态导出项目的 Middleware 告警已消除。

@@ -37,18 +37,6 @@ const nextConfig = {
     optimizeCss: true,
     optimizePackageImports: ["lucide-react", "@radix-ui/react-icons"],
   },
-
-  async headers() {
-    return []
-  },
-
-  async rewrites() {
-    return []
-  },
-
-  async redirects() {
-    return []
-  },
 }
 
 export default nextConfig
