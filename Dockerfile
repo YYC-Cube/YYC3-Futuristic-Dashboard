@@ -2,7 +2,7 @@
 # YYC3 Dashboard - 静态导出 Docker 构建
 # Stage 1: 依赖安装
 # ===========================================
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN corepack enable && pnpm install --frozen-lockfile
 # ===========================================
 # Stage 2: 静态导出构建
 # ===========================================
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules

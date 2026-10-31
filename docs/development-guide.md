@@ -13,8 +13,8 @@
 
 | 工具 | 最低版本 | 说明 |
 |------|---------|------|
-| Node.js | 18.x+ | JavaScript 运行时 |
-| pnpm | 8.x+ | 包管理器 |
+| Node.js | 22.x+ | JavaScript 运行时 |
+| pnpm | 10.34.9+ | 包管理器 |
 | VS Code | latest | 推荐 IDE |
 | Git | 2.x+ | 版本控制 |
 

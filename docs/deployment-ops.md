@@ -63,14 +63,14 @@ pnpm build         # TypeScript + Next.js 构建
 
 ```dockerfile
 # 阶段1：依赖安装
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 RUN corepack enable
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 # 阶段2：构建
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 RUN corepack enable
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -79,7 +79,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm build
 
 # 阶段3：运行
-FROM node:20-alpine AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -296,8 +296,8 @@ on:
     branches: [develop]
 
 env:
-  NODE_VERSION: '20'
-  PNPM_VERSION: '8'
+  NODE_VERSION: '22'
+  PNPM_VERSION: '10.34.9'
 
 jobs:
   lint-and-typecheck:

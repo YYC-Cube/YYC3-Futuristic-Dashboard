@@ -287,8 +287,8 @@ Route (app)                          Size     First Load JS
 
 ### 📋 前置要求
 
-- **Node.js**: >= 18.x (推荐 20.x)
-- **pnpm**: >= 8.x
+- **Node.js**: >= 22.x
+- **pnpm**: >= 10.34.9
 - **Git**: >= 2.x
 
 ### 🚀 安装步骤
@@ -658,7 +658,7 @@ vercel --prod
 <summary><strong>🐳 Docker 部署</strong></summary>
 
 ```dockerfile
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN corepack enable && pnpm install --frozen-lockfile

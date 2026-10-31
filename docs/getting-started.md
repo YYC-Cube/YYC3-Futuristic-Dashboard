@@ -77,13 +77,13 @@ YYC3 是一套面向 **KTV/娱乐场所** 的全栈数字化管理平台，采�
 确保你的开发环境满足以下要求：
 
 ```bash
-# 检查 Node.js 版本（需要 >= 18.x）
+# 检查 Node.js 版本（需要 >= 22.x）
 node --version
-# 输出: v18.x.x 或更高
+# 输出: v22.x.x 或更高
 
-# 检查 pnpm 版本（需要 >= 8.x）
+# 检查 pnpm 版本（需要 >= 10.34.9）
 pnpm --version
-# 输出: 8.x.x 或更高
+# 输出: 10.x.x 或更高
 
 # 如果没有安装 pnpm，执行：
 corepack enable
