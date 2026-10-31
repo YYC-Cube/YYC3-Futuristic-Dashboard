@@ -36,6 +36,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
+      testIgnore: /.*\.visual\.spec\.ts$/,
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1920, height: 1080 },
@@ -44,6 +45,7 @@ export default defineConfig({
     },
     {
       name: 'firefox',
+      testIgnore: /.*\.visual\.spec\.ts$/,
       use: {
         ...devices['Desktop Firefox'],
         viewport: { width: 1920, height: 1080 },
@@ -52,6 +54,7 @@ export default defineConfig({
     },
     {
       name: 'webkit',
+      testIgnore: /.*\.visual\.spec\.ts$/,
       use: {
         ...devices['Desktop Safari'],
         viewport: { width: 1920, height: 1080 },
@@ -60,6 +63,7 @@ export default defineConfig({
     },
     {
       name: 'Mobile Chrome',
+      testIgnore: /.*\.visual\.spec\.ts$/,
       use: {
         ...devices['Pixel 5'],
         viewport: { width: 390, height: 844 },
@@ -67,6 +71,7 @@ export default defineConfig({
     },
     {
       name: 'Mobile Safari',
+      testIgnore: /.*\.visual\.spec\.ts$/,
       use: {
         ...devices['iPhone 12'],
         viewport: { width: 390, height: 844 },
