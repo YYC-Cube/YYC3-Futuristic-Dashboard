@@ -65,7 +65,7 @@ import {
   Calendar,
   User,
   Building,
-  Image,
+  Image as ImageIcon,
   Hash,
   Percent,
   List,
@@ -1258,7 +1258,7 @@ export default function NavigationSystem() {
             >
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-2">
-                  <Image className={`h-4 w-4 ${leftSidebarCollapsed ? "mx-auto" : ""}`} />
+                  <ImageIcon className={`h-4 w-4 ${leftSidebarCollapsed ? "mx-auto" : ""}`} />
                   {!leftSidebarCollapsed && (
                     <>
                       <span className="text-sm font-medium">{item.label}</span>
@@ -1377,7 +1377,7 @@ export default function NavigationSystem() {
                     className="bg-slate-900/50 border border-slate-700/50 rounded-lg p-4 backdrop-blur-sm"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <Image className="h-8 w-8 text-cyan-500" />
+                      <ImageIcon className="h-8 w-8 text-cyan-500" />
                       <Badge variant="outline" className="text-xs">
                         {item.usage}% 使用率
                       </Badge>
@@ -1409,7 +1409,7 @@ export default function NavigationSystem() {
                         className="h-auto py-4 px-4 border-slate-600 bg-slate-800/30 hover:bg-slate-700/50 flex flex-col items-center space-y-2"
                         onClick={() => item.path && setCurrentPath(item.path)}
                       >
-                        <Image className="h-6 w-6 text-cyan-500" />
+                        <ImageIcon className="h-6 w-6 text-cyan-500" />
                         <span className="text-xs text-center">{item.label}</span>
                         {item.badge && <Badge className="bg-cyan-500 text-white text-xs">{item.badge}</Badge>}
                       </Button>

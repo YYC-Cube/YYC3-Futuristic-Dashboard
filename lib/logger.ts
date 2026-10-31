@@ -96,6 +96,7 @@ class Logger {
       data,
     }
 
+    // eslint-disable-next-line no-console -- logger intentionally writes debug output
     console.debug(this.formatMessage(entry))
     
     if (this.isProduction) {
@@ -114,6 +115,7 @@ class Logger {
       data,
     }
 
+    // eslint-disable-next-line no-console -- logger intentionally writes info output
     console.info(this.formatMessage(entry))
     
     if (this.isProduction) {

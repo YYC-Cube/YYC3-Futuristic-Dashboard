@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useMemo } from 'react'
+import Image from 'next/image'
 import { useMembershipStore } from '@/lib/stores/useMembershipStore'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -66,7 +67,6 @@ export default function MembershipCenterPage() {
     selectedMember,
     fetchMembers,
     setSelectedMember,
-    getMembersSafe,
     getActiveMemberCount,
     getTopMembers,
     calculateTierProgress,
@@ -85,7 +85,7 @@ export default function MembershipCenterPage() {
   }, [fetchMembers])
 
   const filteredMembers = useMemo(() => {
-    let result = getMembersSafe()
+    let result = members ?? []
 
     if (tierFilter !== 'all') {
       result = getMembersByTier(tierFilter)
@@ -99,7 +99,7 @@ export default function MembershipCenterPage() {
     }
 
     return result
-  }, [members, tierFilter, searchQuery, getMembersSafe, getMembersByTier])
+  }, [members, tierFilter, searchQuery, getMembersByTier])
 
   const stats = useMemo(() => {
     const all = members ?? []
@@ -618,7 +618,13 @@ export default function MembershipCenterPage() {
               <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-all group">
                 <div className="aspect-video bg-gradient-to-br from-purple-50 to-pink-50 relative overflow-hidden">
                   {item.imageUrl ? (
-                    <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.name}
+                      width={400}
+                      height={225}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <Gift className="h-16 w-16 text-purple-300" />

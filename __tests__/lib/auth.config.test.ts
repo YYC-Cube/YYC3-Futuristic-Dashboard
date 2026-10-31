@@ -156,9 +156,7 @@ describe('认证配置模块测试', () => {
     it('应该记录登录事件', () => {
       const mockUser = { name: '测试用户' }
       const mockAccount = { provider: 'credentials' }
-      
-      console.log(`[Auth] User signed in: ${mockUser.name} (${mockAccount.provider})`)
-      
+
       expect(mockUser.name).toBe('测试用户')
       expect(mockAccount.provider).toBe('credentials')
     })
@@ -169,7 +167,6 @@ describe('认证配置模块测试', () => {
       }
       
       if (mockMessage.token) {
-        console.log(`[Auth] User signed out: ${mockMessage.token.name}`)
         expect(mockMessage.token.name).toBe('测试用户')
       }
     })

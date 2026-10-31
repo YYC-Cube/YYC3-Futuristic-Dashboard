@@ -369,7 +369,7 @@ export function useVirtualScroll(options: {
       offset += typeof options.itemHeight === 'function' ? options.itemHeight(i) : options.itemHeight
     }
     element.scrollTo({ top: offset, behavior: 'smooth' })
-  }, [options.itemHeight])
+  }, [options])
 
   return {
     scrollTop,

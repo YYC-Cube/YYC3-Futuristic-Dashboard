@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -618,9 +619,11 @@ export default function ProductManagement() {
                         <div className="flex items-center space-x-4">
                           <div className="w-16 h-16 bg-slate-700 rounded-lg flex items-center justify-center">
                             {product.image ? (
-                              <img
+                              <Image
                                 src={product.image || "/placeholder.svg"}
                                 alt={product.name}
+                                width={64}
+                                height={64}
                                 className="w-full h-full object-cover rounded-lg"
                               />
                             ) : (
