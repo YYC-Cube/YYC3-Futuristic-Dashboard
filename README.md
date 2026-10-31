@@ -1,5 +1,9 @@
 # YYC³ 智慧商家管理系统
 
+> ⚠️ **REFERENCE ONLY / FROZEN（2026-11-01）**
+> 本项目已冻结，仅作**只读设计参考**；不再新增功能、不再部署、不再作为生产系统。
+> 替代项目：[YYC³ Club Ops](https://github.com/YYC-Cube/YYC3-Club-Ops) · 冻结记录见 [ARCHIVED.md](./ARCHIVED.md)
+
 > ***YanYuCloudCube***
 > *言启象限 | 语枢未来*
 > ***Words Initiate Quadrants, Language Serves as Core for Future***
@@ -7,7 +11,7 @@
 > ***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***
 
 <p align="center">
-  <img src="docs/Family-AI-001.png" alt="YanYuCloudCube Family π³" width="100%" />
+  <img src="public/yyc3-family.png" alt="YanYuCloudCube Family π³" width="100%" />
 </p>
 
 <h1 align="center">YYC³ 智慧商家管理系统</h1>
@@ -25,11 +29,11 @@
   <br />
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License" />
   <img src="https://img.shields.io/badge/Version-v1.0.0-blue?style=flat-square" alt="Version" />
-  <img src="https://img.shields.io/badge/Status-Production_Ready-success?style=flat-square" alt="Status" />
+  <img src="https://img.shields.io/badge/Status-Archived_Reference-lightgrey?style=flat-square" alt="Status" />
   <img src="https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?style=flat-square&logo=github-actions" alt="CI/CD" />
   <img src="https://img.shields.io/badge/Deploy-Github_Pages-430098?style=flat-square&logo=github-pages" alt="GitHub Pages" />
   <br />
-  <a href="https://futuristic.yyc3.top"><strong>🌐 Live Demo: futuristic.yyc3.top</strong></a>
+  <a href="https://futuristic.yyc3.top"><strong>🌐 只读演示（不再更新）: futuristic.yyc3.top</strong></a>
   ·
   <a href="#-快速开始"><strong>🚀 快速开始</strong></a>
   ·
@@ -68,7 +72,7 @@
 ### 🎯 设计理念
 
 | 维度 | 理念 | 实现 |
-|------|------|------|
+| ------ | ------ | ------ |
 | **时间维度** | 效率优先 | ISR 缓存、增量构建、实时数据 |
 | **空间维度** | 多端适配 | 响应式设计、PWA 支持、移动优化 |
 | **属性维度** | 类型安全 | TypeScript Strict、Zustand 状态管理 |
@@ -91,7 +95,7 @@
 ### 🌐 高可用性 (High Availability)
 
 | 特性 | 说明 | 状态 |
-|------|------|------|
+| ------ | ------ | ------ |
 | **Sentry 错误监控** | 全链路错误捕获与上报（客户端+服务端） | ✅ 已实现 |
 | **负载均衡配置** | AWS ALB / Nginx / Cloudflare 配置模板 | ✅ 已实现 |
 | **多区域备份** | 跨区域容灾策略文档 | ✅ 已实现 |
@@ -100,7 +104,7 @@
 ### ⚡ 高性能 (High Performance)
 
 | 特性 | 指标 | 状态 |
-|------|------|------|
+| ------ | ------ | ------ |
 | **ISR 缓存** | 300s 增量静态再生 | ✅ 已实现 |
 | **图片优化** | WebP/AVIF 自动转换 + 懒加载 | ✅ 已实现 |
 | **Bundle 分析** | First Load JS ~102KB | ✅ 已实现 |
@@ -110,7 +114,7 @@
 ### 🔒 高安全性 (High Security)
 
 | 特性 | 说明 | 状态 |
-|------|------|------|
+| ------ | ------ | ------ |
 | **认证系统** | NextAuth.js v5 Beta | ✅ 已实现 |
 | **权限控制** | RBAC 角色权限（admin/manager/staff/guest） | ✅ 已实现 |
 | **API 限流** | IP 级别 Rate Limiting | ✅ 已实现 |
@@ -120,7 +124,7 @@
 ### 🧠 高智能扩展 (High Intelligence)
 
 | 特性 | 说明 | 状态 |
-|------|------|------|
+| ------ | ------ | ------ |
 | **AI 助手** | 智谱 GLM 多模型支持（GLM-4.6/4.5v/4.5-flash） | ✅ 已实现 |
 | **视觉分析** | 图片内容理解与分析 | ✅ 已实现 |
 | **智能推荐** | 协同过滤 + 内容推荐引擎 | ✅ 已实现 |
@@ -130,7 +134,7 @@
 ### 📏 高标准提升 (High Standard)
 
 | 特性 | 指标 | 状态 |
-|------|------|------|
+| ------ | ------ | ------ |
 | **单元测试** | 24/24 用例通过 (100%) | ✅ 已实现 |
 | **E2E 测试** | Playwright 跨浏览器测试框架 | ✅ 已配置 |
 | **组件文档** | Storybook 交互式文档 | ✅ 已配置 |
@@ -176,7 +180,7 @@
 ### 核心依赖
 
 | 类别 | 技术 | 版本 | 用途 |
-|------|------|------|------|
+| ------ | ------ | ------ | ------ |
 | **框架** | Next.js | 15.x | React 全栈框架 |
 | **UI 库** | React | 19.x | 用户界面库 |
 | **语言** | TypeScript | 5.x | 类型安全 |
@@ -196,7 +200,7 @@
 ### Lighthouse 评分（预估）
 
 | 指标 | 目标值 | 当前状态 | 说明 |
-|------|--------|----------|------|
+| ------ | -------- | ---------- | ------ |
 | **Performance** | ≥ 90 | ✅ ~92 | 首屏加载 < 1.5s |
 | **Accessibility** | ≥ 95 | ✅ ~98 | WCAG 2.1 AA 标准 |
 | **Best Practices** | ≥ 95 | ✅ ~96 | 安全最佳实践 |
@@ -264,7 +268,7 @@ Route (app)                          Size     First Load JS
 ### 📐 五标体系 (Five-Standard System)
 
 | 标准 | 实现 | 工具 |
-|------|------|------|
+| ------ | ------ | ------ |
 | **标准化** | 统一代码规范、文档格式 | ESLint, Prettier, MarkdownLint |
 | **规范化** | Git Flow、语义化版本号 | Conventional Commits, SemVer |
 | **自动化** | CI/CD 全流程自动化 | GitHub Actions |
@@ -274,7 +278,7 @@ Route (app)                          Size     First Load JS
 ### 🔄 五化转型 (Five-Transformation)
 
 | 转型方向 | 当前阶段 | 目标状态 |
-|----------|----------|----------|
+| ---------- | ---------- | ---------- |
 | **流程化** | ✅ 已建立 | 持续优化 |
 | **数字化** | ✅ 数据驱动 | 深度挖掘 |
 | **生态化** | 🔄 扩展中 | 平台化 |
@@ -528,7 +532,7 @@ yyc3-futuristic-dashboard/
 #### 命名规范
 
 | 类型 | 规范 | 示例 |
-|------|------|------|
+| ------ | ------ | ------ |
 | **组件文件** | PascalCase.tsx | `RoomDashboard.tsx` |
 | **Hook 文件** | camelCase.ts | `useAuthStore.ts` |
 | **工具函数** | camelCase.ts | `formatDate.ts` |
@@ -590,6 +594,7 @@ pnpm test:e2e:report
 ```
 
 **测试覆盖场景：**
+
 - ✅ 认证流程（登录/登出）
 - ✅ 包厢管理（列表/筛选/详情）
 - ✅ 订单管理（创建/查看）
@@ -624,6 +629,7 @@ pnpm test:e2e:report
 已配置 **futuristic.yyc3.top** 域名：
 
 1. DNS 记录：
+
    ```
    Type: CNAME
    Name: futuristic
@@ -717,7 +723,7 @@ server {
 ### 代码规模
 
 | 类别 | 数量 | 说明 |
-|------|------|------|
+| ------ | ------ | ------ |
 | **源代码文件** | 150+ | TypeScript/React |
 | **UI 组件** | 80+ | shadcn/ui + 自定义组件 |
 | **测试用例** | 34+ | 单元测试 + E2E |
@@ -753,22 +759,26 @@ API Endpoints: 3 (with ISR)
 ### 🎯 贡献流程
 
 1. **Fork 本仓库**
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/yyc3-futuristic-dashboard.git
    ```
 
 2. **创建功能分支**
+
    ```bash
    git checkout -b feature/amazing-feature
    ```
 
 3. **进行开发**
+
    ```bash
    pnpm install
    pnpm dev
    ```
 
 4. **运行测试**
+
    ```bash
    pnpm test
    pnpm lint
@@ -777,11 +787,13 @@ API Endpoints: 3 (with ISR)
    ```
 
 5. **提交代码**
+
    ```bash
    git commit -m "feat: 添加新功能描述"
    ```
 
 6. **推送到 Fork**
+
    ```bash
    git push origin feature/amazing-feature
    ```
@@ -817,7 +829,7 @@ API Endpoints: 3 (with ISR)
 添加相关截图或录屏
 
 ## 📚 相关文档
-- Issue #: 
+- Issue #:
 - 相关文档链接:
 ```
 
@@ -865,8 +877,8 @@ SOFTWARE.
 
 ### 核心团队
 
-**YanYuCloudCube Team**  
-*言启象限 | 语枢未来*  
+**YanYuCloudCube Team**
+*言启象限 | 语枢未来*
 *万象归元于云枢 | 深栈智启新纪元*
 
 ### 技术支持
@@ -888,8 +900,8 @@ SOFTWARE.
 
 ### 📧 联系方式
 
-- **邮箱**: admin@0379.email
-- **官网**: https://yanyucloudcube.com
+- **邮箱**: <admin@0379.email>
+- **官网**: <https://yanyucloudcube.com>
 - **文档**: [查看完整文档](./docs/)
 
 ### 💬 问题反馈
@@ -931,7 +943,7 @@ SOFTWARE.
 </div>
 
 ---
-**Generated by:** YYC³ Intelligent Implementation Expert  
-**Last Updated:** 2026-05-22  
-**Framework:** 五维驱动五高标准体系 (Five Dimensions Driving Five-High Five-Standard)  
+**Generated by:** YYC³ Intelligent Implementation Expert
+**Last Updated:** 2026-05-22
+**Framework:** 五维驱动五高标准体系 (Five Dimensions Driving Five-High Five-Standard)
 **Powered by:** YanYuCloudCube™ Family π³
