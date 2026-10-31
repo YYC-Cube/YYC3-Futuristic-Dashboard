@@ -36,7 +36,7 @@ test.describe('库存智能看板', () => {
     await seedAuth(page)
     await page.goto('/inventory')
 
-    await page.getByRole('button', { name: /添加商品/ }).click()
+    await page.getByRole('button', { name: /添加商品/ }).first().click()
     await expectHeading(page, '添加新商品')
     await expect(page.getByText('录入商品信息以加入库存管理系统')).toBeVisible()
   })

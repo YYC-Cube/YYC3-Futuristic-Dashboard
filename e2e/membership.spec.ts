@@ -36,7 +36,7 @@ test.describe('会员中心', () => {
     await seedAuth(page)
     await page.goto('/membership')
 
-    await page.getByRole('button', { name: /添加会员/ }).click()
+    await page.getByRole('button', { name: /添加会员/ }).first().click()
     await expectHeading(page, '添加新会员')
     await expect(page.getByText('录入会员基本信息以开启会员服务')).toBeVisible()
   })

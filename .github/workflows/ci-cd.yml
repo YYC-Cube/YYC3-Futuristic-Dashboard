@@ -162,7 +162,7 @@ jobs:
             sleep 15
           done
 
-      - name: Run E2E smoke tests
+      - name: Run E2E Chromium tests
         run: pnpm test:e2e:ci
         env:
           CI: true
