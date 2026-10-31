@@ -165,7 +165,7 @@ healthcheck:
 
 ## 六、遗留事项
 
-- 安全扫描中的 TruffleHog 因 base/head 相同会报错，可改为仅在 PR 场景执行。
+- Slack / Discord Secret 当前未配置，通知步骤保持跳过；配置后需用真实 Webhook 做一次验证。
 
 ## 七、后续治理（2026-11-01）
 
@@ -174,7 +174,6 @@ healthcheck:
 - 10 个历史 E2E 文件已迁移到当前 `/`、`/rooms`、`/orders`、`/inventory`、`/membership`、`/products`、`/members`、`/settings`、`/employees`、`/pos` 等真实路由。
 - 移除对 `/dashboard` 和历史 `data-testid` 的依赖，改用当前页面的标题、Tab、按钮与占位符。
 - 新增 `e2e/helpers.ts` 提供会话注入与登录辅助。
-- 视觉回归用例因缺少基线截图暂标记为 `skip`，保留结构待独立流水线接入。
 - `test:e2e:ci` 现在运行完整 Chromium 套件：39 passed / 2 skipped。
 
 ### 7.2 Node.js 22 与 Actions 升级
@@ -196,6 +195,8 @@ healthcheck:
   - `docker/login-action@v4`
   - `docker/metadata-action@v6`
   - `docker/build-push-action@v7`
+  - `slackapi/slack-github-action@v4.0.0`
+  - `sarisia/actions-status-discord@v1.16.0`
 
 ### 7.3 Middleware 与静态导出告警
 
@@ -210,6 +211,33 @@ healthcheck:
 
 构建验证：`pnpm build` 已不再出现 `Middleware cannot be used with "output: export"` 告警。
 
+### 7.4 视觉回归启用
+
+- 用例迁移为 `e2e/visual-regression.visual.spec.ts`。
+- 提交 macOS 与 Linux Chromium 基线：
+  - `login-page.png`
+  - `not-found-page.png`
+- 新增脚本 `test:e2e:visual`。
+- 新增 CI Job `🖼️ Visual Regression (Chromium)`，使用：
+  - `mcr.microsoft.com/playwright:v1.60.0-noble`
+  - `--ipc=host`
+- 视觉回归结果纳入 Quality Gate，失败会阻断 Pages 部署。
+
+### 7.5 TruffleHog 扫描范围
+
+- `base` 改为 `${{ github.event.before }}`
+- `head` 改为 `${{ github.sha }}`
+- push 到 main 时扫描本次推送的变更，不再出现 base/head 相同的“未扫描”注解。
+
+### 7.6 ESLint 告警清零
+
+- `<img>` 改为 `next/image`：商品管理、会员兑换商城。
+- 导航图标 `lucide-react` 的 `Image` 重命名为 `ImageIcon`，消除 `alt-text` 误报。
+- 修复 `useMemo` / `useCallback` 依赖。
+- Logger 的 `console.debug/info` 增加明确的 ESLint 忽略说明。
+- 移除测试中无意义的 `console.log`。
+- 当前 `pnpm lint`：0 errors / 0 warnings。
+
 ---
 
-**结论**：E2E 已迁移到当前真实路由并全量通过 Chromium 套件；Node.js 已升级至 22；静态导出项目的 Middleware 告警已消除。
+**结论**：E2E 已迁移并全量通过，视觉回归已启用并纳入质量门禁；Node.js 升级至 22，Actions 全部使用 Node 24 运行时；TruffleHog 扫描范围与 ESLint 告警均已治理完成。
