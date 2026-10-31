@@ -235,6 +235,11 @@ class ApiClient {
       return this.mockRequest(room as T)
     }
 
+    if (endpoint === "/orders" && (options.method ?? "GET") === "GET") {
+      // 返回稳定的分页结构，避免调用方直接读取 undefined
+      return this.mockRequest({ orders: [] as Order[], total: 0 } as T)
+    }
+
     if (endpoint === "/products") {
       return this.mockRequest({ products: mockData.products, total: mockData.products.length } as T)
     }
