@@ -825,14 +825,17 @@ function AddMemberForm({ onSuccess }: { onSuccess: () => void }) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
+    const genderValue = formData.get('gender')
+    const gender =
+      genderValue === 'male' || genderValue === 'female' ? genderValue : undefined
 
     try {
       await addMember({
         storeId: 'store-001',
         phone: formData.get('phone') as string,
         name: formData.get('name') as string,
-        gender: formData.get('gender') as 'male' | 'female',
-        birthday: formData.get('birthday') as string,
+        gender,
+        birthday: (formData.get('birthday') as string) || undefined,
         tierId: formData.get('tierId') as string,
         points: 0,
         totalPointsEarned: 0,
@@ -865,12 +868,12 @@ function AddMemberForm({ onSuccess }: { onSuccess: () => void }) {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <label className="text-sm font-medium">性别</label>
-          <Select name="gender" defaultValue="">
+          <Select name="gender" defaultValue="secret">
             <SelectTrigger>
               <SelectValue placeholder="选择性别" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">保密</SelectItem>
+              <SelectItem value="secret">保密</SelectItem>
               <SelectItem value="male">男</SelectItem>
               <SelectItem value="female">女</SelectItem>
             </SelectContent>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/lib/stores/useAuthStore"
 import { Button } from "@/components/ui/button"
@@ -41,6 +41,11 @@ export default function LoginPage() {
     checkDevEnvironment()
   }, [])
 
+  const handleGhostModeLogin = useCallback(() => {
+    ghostModeLogin()
+    router.replace("/")
+  }, [ghostModeLogin, router])
+
   // 键盘快捷键：⌘G 或 Ctrl+G 快速进入幽灵模式
   useEffect(() => {
     if (!isDevMode) return
@@ -57,7 +62,7 @@ export default function LoginPage() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isDevMode])
+  }, [isDevMode, handleGhostModeLogin])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -66,10 +71,6 @@ export default function LoginPage() {
     if (success) {
       router.replace("/")
     }
-  }
-
-  const handleGhostModeLogin = () => {
-    ghostModeLogin()
   }
 
   return (
