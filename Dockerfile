@@ -1,16 +1,16 @@
 # ===========================================
-# YYC3 Dashboard - 多阶段 Docker 构建
+# YYC3 Dashboard - 静态导出 Docker 构建
 # Stage 1: 依赖安装
 # ===========================================
 FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml .npmrc ./
 RUN corepack enable && pnpm install --frozen-lockfile
 
 # ===========================================
-# Stage 2: 构建阶段
+# Stage 2: 静态导出构建
 # ===========================================
 FROM node:20-alpine AS builder
 WORKDIR /app
@@ -24,29 +24,14 @@ ENV NODE_ENV=production
 RUN corepack enable && pnpm build
 
 # ===========================================
-# Stage 3: 生产运行阶段
+# Stage 3: Nginx 静态运行阶段
 # ===========================================
-FROM node:20-alpine AS runner
-WORKDIR /app
+FROM nginx:alpine AS runner
 
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/out /usr/share/nginx/html
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+EXPOSE 80
 
-COPY --from=builder /app/public ./public
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
-
-EXPOSE 3000
-
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-
-CMD ["node", "server.js"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s \
+  CMD wget -q -O /dev/null http://127.0.0.1/ || exit 1

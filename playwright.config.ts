@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
+const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:20307'
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -11,7 +13,7 @@ export default defineConfig({
     ['json', { outputFile: 'test-results/results.json' }],
   ],
   use: {
-    baseURL: 'http://localhost:20307',
+    baseURL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -82,7 +84,7 @@ export default defineConfig({
   ],
   webServer: {
     command: 'pnpm dev --port 20307',
-    url: 'http://localhost:20307',
+    url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
   },

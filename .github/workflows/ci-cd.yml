@@ -17,7 +17,7 @@ on:
 
 env:
   NODE_VERSION: '20'
-  PNPM_VERSION: '10'
+  PNPM_VERSION: '10.34.9'
   DOCKER_REGISTRY: ghcr.io
   DOCKER_IMAGE: ${{ github.repository }}/yyc3-dashboard
 
@@ -123,8 +123,8 @@ jobs:
   # ===========================================
   e2e-tests:
     name: 🎭 E2E Tests (Playwright)
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     needs: quality-check
     
     if: github.event.inputs.skip_tests != 'true'
@@ -151,7 +151,7 @@ jobs:
         run: |
           for i in {1..3}; do
             echo "Installing Playwright browsers (attempt $i)"
-            if npx playwright install --with-deps chromium; then
+            if pnpm exec playwright install --with-deps chromium; then
               echo "✅ Playwright installed successfully"
               break
             fi
@@ -162,61 +162,12 @@ jobs:
             sleep 15
           done
 
-      - name: Start development server
-        run: |
-          pnpm dev &
-          SERVER_PID=$!
-          echo "Server PID: $SERVER_PID"
-          echo "SERVER_PID=$SERVER_PID" >> $GITHUB_ENV
-          
-          # 等待服务器启动（最多60秒）
-          for i in $(seq 1 30); do
-            if curl -s http://localhost:20307 > /dev/null 2>&1; then
-              echo "✅ Server is ready"
-              break
-            fi
-            echo "Waiting for server... ($i/30)"
-            sleep 2
-          done
-        timeout-minutes: 2
-
-      - name: Run E2E tests
-        id: e2e
-        run: |
-          echo "## E2E Test Results" >> $GITHUB_STEP_SUMMARY
-          
-          # 运行测试并捕获退出码
-          set +e
-          pnpm test:e2e 2>&1 | tee e2e-output.txt
-          EXIT_CODE=$?
-          set -e
-          
-          if [ -f e2e-output.txt ]; then
-            PASSED=$(grep -oP '\d+(?=\s+passed)' e2e-output.txt | tail -1 || echo "0")
-            FAILED=$(grep -oP '\d+(?=\s+failed)' e2e-output.txt | tail -1 || echo "0")
-            echo "- **Passed**: $PASSED" >> $GITHUB_STEP_SUMMARY
-            echo "- **Failed**: $FAILED" >> $GITHUB_STEP_SUMMARY
-          fi
-          
-          # 如果有失败的测试但不是全部失败，仍然继续
-          if [ $EXIT_CODE -ne 0 ] && [ "$FAILED" != "$PASSED" ]; then
-            echo "::warning::Some E2E tests failed but pipeline will continue"
-            exit 0
-          fi
-          
-          exit $EXIT_CODE
+      - name: Run E2E smoke tests
+        run: pnpm test:e2e:ci
         env:
           CI: true
           PLAYWRIGHT_BASE_URL: http://localhost:20307
           NODE_OPTIONS: '--max-old-space-size=4096'
-
-      - name: Stop development server
-        if: always()
-        run: |
-          if [ -n "$SERVER_PID" ]; then
-            kill $SERVER_PID 2>/dev/null || true
-          fi
-          pkill -f "next dev" 2>/dev/null || true
 
       - name: Upload Playwright report
         if: always()
