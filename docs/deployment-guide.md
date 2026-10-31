@@ -39,14 +39,14 @@
 - **CPU**: 2 核
 - **内存**: 4 GB RAM
 - **存储**: 20 GB SSD
-- **Node.js**: >= 18.x
-- **pnpm**: >= 8.x
+- **Node.js**: >= 22.x
+- **pnpm**: >= 10.34.9
 
 #### 推荐配置（生产环境）
 - **CPU**: 4 核+
 - **内存**: 8 GB RAM+
 - **存储**: 50 GB NVMe SSD
-- **Node.js**: 18 LTS
+- **Node.js**: 22 LTS
 - **带宽**: 100 Mbps+
 
 ---
@@ -75,10 +75,10 @@ pnpm run build
 
 ```bash
 # 检查 Node.js 版本
-node --version  # 应该 >= 18.x
+node --version  # 应该 >= 22.x
 
 # 检查 pnpm 版本
-pnpm --version  # 应该 >= 8.x
+pnpm --version  # 应该 >= 10.34.9
 
 # 检查依赖完整性
 pnpm run build  # 构建成功即可
@@ -417,8 +417,8 @@ docker-compose up -d --build
 # 更新系统
 sudo apt update && sudo apt upgrade -y
 
-# 安装 Node.js 18 LTS
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+# 安装 Node.js 22 LTS
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # 安装 pnpm
