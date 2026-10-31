@@ -523,7 +523,9 @@ jobs:
       needs.quality-gate.result == 'success' &&
       github.event.inputs.skip_tests != 'true'
     permissions:
-      contents: write
+      contents: read
+      pages: write
+      id-token: write
     timeout-minutes: 15
     environment:
       name: github-pages
@@ -563,16 +565,17 @@ jobs:
           NEXT_PUBLIC_ENVIRONMENT: production
           NODE_OPTIONS: '--max-old-space-size=4096'
 
-      - name: Deploy to GitHub Pages with retry
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
-          publish_branch: gh-pages
-          force_orphan: true
-          cname: futuristic.yyc3.top
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
+          path: ./out
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
       - name: Deployment summary
         if: success()
@@ -582,7 +585,7 @@ jobs:
           
           ### ✅ Deployment Details
           
-          - **🌐 URL**: https://futuristic.yyc3.top/
+          - **🌐 URL**: ${{ steps.deployment.outputs.page_url }}
           - **📦 Commit**: \`${{ github.sha }}\`
           - **👤 Deployed by**: @${{ github.actor }}
           - **⏰ Time**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
