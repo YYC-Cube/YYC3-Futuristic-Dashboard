@@ -192,6 +192,10 @@ healthcheck:
   - `actions/upload-pages-artifact@v5`
   - `actions/deploy-pages@v5`
   - `softprops/action-gh-release@v3`
+  - `docker/setup-buildx-action@v4`
+  - `docker/login-action@v4`
+  - `docker/metadata-action@v6`
+  - `docker/build-push-action@v7`
 
 ### 7.3 Middleware 与静态导出告警
 
